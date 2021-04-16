@@ -11,7 +11,7 @@ import { View, Platform, StyleSheet, Text, ScrollView, Image } from 'react-nativ
 import { Icon } from 'react-native-elements';
 import SafeAreaView from 'react-native-safe-area-view';
 import { connect } from 'react-redux';
-import { fetchCampsites, fetchComments, fetchPromotions, fetchPartners } from '../shared/redux/ActionCreators';
+import { fetchCampsites, fetchComments, fetchPromotions, fetchPartners } from '../redux/ActionCreators';
 
 const mapStateToProps = {
     fetchCampsites,
