@@ -230,17 +230,22 @@ const AppNavigator = createAppContainer(MainNavigator)
 
 class Main extends Component {
   componentDidMount() {
+    NetInfo.fetch()
     this.props.fetchCampsites()
     this.props.fetchComments()
     this.props.fetchPromotions()
     this.props.fetchPartners()
 
-    NetInfo.fetch().then((connectionInfo) => {
-      Platform.OS === 'ios' ? Alert.alert('initial Network connectivity Type: ', connectionInfo.type) : ToastAndroid.show('Initial Network Connectivity Type: ' + connectionInfo.type, ToastAndroid.LONG)
-    })
+    // NetInfo.fetch().then((connectionInfo) => {
+    //   Platform.OS === 'ios' ? Alert.alert('initial Network connectivity Type: ', connectionInfo.type) : ToastAndroid.show('Initial Network Connectivity Type: ' + connectionInfo.type, ToastAndroid.LONG)
+    // })
 
-    this.unsubscribeNetInfo = NetInfo.addEventListener((connectionInfo) => this.handleConnectivityChange(connectionInfo))
+    this.showNetInfo()
+    this.unsubscribeNetInfo = NetInfo.addEventListener((connectionInfo) => {
+      setTimeout(() => this.handleConnectivityChange(connectionInfo), 2000)
+    })
   }
+
   componentWillUnmount() {
     this.unsubscribeNetInfo()
   }
@@ -261,6 +266,13 @@ class Main extends Component {
         break
     }
     Platform.OS === 'ios' ? Alert.alert('connection change', connectionMsg) : ToastAndroid.show(connectionMsg, ToastAndroid.LONG)
+  }
+
+  showNetInfo = async () => {
+    const connectionInfo = await NetInfo.fetch()
+    Platform.OS === 'ios'
+      ? Alert.alert('initial Network connectivity Type: ', connectionInfo.type)
+      : ToastAndroid.show('Initial Network Connectivity Type: ' + connectionInfo.type, ToastAndroid.LONG)
   }
 
   render() {
