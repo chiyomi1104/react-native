@@ -1,6 +1,6 @@
 # Nucamp Site Mobile App
 ## Overview
-This is a mobile app for Nucamp coding school. I made this app as a campstone for React Native course. 
+A featured mobile app for virtual hiking course. I made this app as a campstone for React Native course at the Nucamp Coding Bootcamp
 
 ## Development
 ### Languages and Framework
